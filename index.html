@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Checklist para Revisões Sistemáticas e Meta-análises</title>
+<meta name="description" content="Checklist de condução de revisões sistemáticas e meta-análises, organizado a partir da estrutura do Cochrane Handbook v6.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+  :root{
+    --paper:#f4f8f7; --surface:#ffffff; --surface-alt:#e9f1ef;
+    --ink:#0f2427; --ink-soft:#41595c; --ink-faint:#7c9497; --line:#d5e3e1;
+    --water:#0f6e73; --water-deep:#0a4d51; --water-tint:#dcedec;
+    --bubble:#d9622f; --bubble-tint:#fbe4d7;
+    --good:#2f7d5c; --good-tint:#dcefe5;
+    --shadow: 0 1px 2px rgba(15,36,39,.05), 0 8px 24px -14px rgba(15,36,39,.14);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#0b1719; --surface:#0f1e21; --surface-alt:#132325;
+      --ink:#e7f1f0; --ink-soft:#b3c9c8; --ink-faint:#72908f; --line:#1e3335;
+      --water:#4fb8ba; --water-deep:#a7dedd; --water-tint:#123536;
+      --bubble:#ff9760; --bubble-tint:#3a2418;
+      --good:#6cc79b; --good-tint:#12302a;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px -14px rgba(0,0,0,.5);
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#0b1719; --surface:#0f1e21; --surface-alt:#132325;
+    --ink:#e7f1f0; --ink-soft:#b3c9c8; --ink-faint:#72908f; --line:#1e3335;
+    --water:#4fb8ba; --water-deep:#a7dedd; --water-tint:#123536;
+    --bubble:#ff9760; --bubble-tint:#3a2418;
+    --good:#6cc79b; --good-tint:#12302a;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px -14px rgba(0,0,0,.5);
+  }
+
+  *{box-sizing:border-box;}
+  html{background:var(--paper);}
+  body{margin:0; background:var(--paper); color:var(--ink);
+    font-family:"IBM Plex Sans", system-ui, -apple-system, sans-serif; line-height:1.55; -webkit-font-smoothing:antialiased;}
+  .wrap{max-width:940px; margin:0 auto; padding:2.9rem 1.5rem 5rem;}
+  h1,h2{font-family:"Source Serif 4", Georgia, serif; font-weight:700; color:var(--ink); text-wrap:balance; margin:0;}
+  .eyebrow{font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:.7rem; letter-spacing:.13em; text-transform:uppercase; color:var(--water-deep); font-weight:600;}
+
+  header{display:flex; flex-direction:column; gap:.75rem; padding-bottom:1.6rem; margin-bottom:1.5rem; border-bottom:2px solid var(--water);}
+  header h1{font-size:clamp(1.55rem,1.1rem+1.9vw,2.15rem); line-height:1.16;}
+  header p{margin:0; max-width:72ch; color:var(--ink-soft); font-size:.91rem;}
+
+  .progress{background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:1rem 1.2rem; margin-bottom:2rem; box-shadow:var(--shadow); position:sticky; top:0; z-index:5;}
+  .prog-top{display:flex; justify-content:space-between; align-items:baseline; gap:1rem; flex-wrap:wrap; margin-bottom:.6rem;}
+  .prog-top .cnt{font-family:"Source Serif 4",serif; font-size:1.35rem; font-weight:700;}
+  .prog-top .cnt span{font-size:.9rem; color:var(--ink-faint); font-weight:400;}
+  .prog-top .save{font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:.68rem; letter-spacing:.05em; color:var(--ink-faint); min-height:1rem;}
+  .prog-top .save.on{color:var(--water);}
+  .prog-top .save.err{color:var(--bubble);}
+  .track{height:.5rem; background:var(--surface-alt); border-radius:99px; overflow:hidden;}
+  .track .fill{height:100%; background:var(--water); border-radius:99px; transition:width .28s ease; width:0%;}
+  @media (prefers-reduced-motion: reduce){ .track .fill{transition:none;} }
+  .prog-foot{margin-top:.7rem; display:flex; justify-content:space-between; align-items:center; gap:1rem; flex-wrap:wrap;}
+  .prog-foot p{margin:0; font-size:.76rem; color:var(--ink-faint); line-height:1.45; max-width:52ch;}
+  .btns{display:flex; gap:.4rem;}
+  button.act{
+    font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:.68rem; letter-spacing:.04em;
+    background:var(--surface); color:var(--ink-soft); border:1px solid var(--line);
+    padding:.35rem .7rem; border-radius:6px; cursor:pointer; white-space:nowrap;
+  }
+  button.act:hover{border-color:var(--water); color:var(--water);}
+  button.act:focus-visible{outline:2px solid var(--water); outline-offset:2px;}
+
+  .stage{margin-bottom:1.8rem;}
+  .stage-head{display:flex; align-items:baseline; gap:.7rem; margin-bottom:.65rem; flex-wrap:wrap;}
+  .stage-head .num{font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:.72rem; font-weight:600; color:#fff; background:var(--water); width:1.5rem; height:1.5rem; border-radius:5px; display:inline-flex; align-items:center; justify-content:center; flex:none;}
+  .stage-head h2{font-size:1.06rem;}
+  .stage-head .ch{font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:.66rem; color:var(--ink-faint); border:1px solid var(--line); padding:.14rem .45rem; border-radius:99px;}
+  .stage-head .frac{font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:.68rem; color:var(--ink-faint); margin-left:auto;}
+
+  ul.items{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:1px; background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden;}
+  ul.items li{background:var(--surface); display:grid; grid-template-columns:1.7rem 1fr auto; gap:.65rem; align-items:start; padding:.15rem .95rem .15rem .55rem;}
+  @media (max-width:700px){ul.items li{grid-template-columns:1.7rem 1fr;} ul.items li .st{grid-column:2; justify-self:start; margin:0 0 .6rem;}}
+  ul.items li.on{background:var(--good-tint);}
+  ul.items li label{display:contents; cursor:pointer;}
+  ul.items li input[type=checkbox]{
+    appearance:none; -webkit-appearance:none; margin:.75rem 0 0 .3rem;
+    width:1.1rem; height:1.1rem; border:1.6px solid var(--ink-faint); border-radius:4px;
+    background:var(--surface); cursor:pointer; position:relative; flex:none; display:block;
+  }
+  ul.items li input[type=checkbox]:checked{background:var(--good); border-color:var(--good);}
+  ul.items li input[type=checkbox]:checked::after{content:"\2713"; position:absolute; inset:0; color:#fff; font-size:.76rem; display:flex; align-items:center; justify-content:center; font-weight:700;}
+  ul.items li input[type=checkbox]:focus-visible{outline:2px solid var(--water); outline-offset:2px;}
+  .txt{font-size:.855rem; color:var(--ink); padding:.62rem 0;}
+  li.on .txt b{text-decoration:line-through; text-decoration-color:var(--good); text-decoration-thickness:1px;}
+  .txt .sub{display:block; color:var(--ink-soft); font-size:.79rem; margin-top:.2rem; line-height:1.45;}
+  .txt b{font-weight:600;}
+  .st{font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:.6rem; font-weight:600; padding:.2rem .5rem; border-radius:99px; white-space:nowrap; letter-spacing:.05em; margin-top:.75rem; background:var(--bubble-tint); color:var(--bubble);}
+  li.on .st{opacity:.4;}
+
+  .flag{background:var(--surface); border:1px solid var(--line); border-left:4px solid var(--bubble); border-radius:9px; padding:.95rem 1.15rem; margin:1.4rem 0 0; box-shadow:var(--shadow); font-size:.85rem; color:var(--ink-soft); line-height:1.55;}
+  .flag .lbl{display:block; font-family:"IBM Plex Mono",ui-monospace,monospace; font-size:.63rem; letter-spacing:.09em; text-transform:uppercase; color:var(--bubble); font-weight:600; margin-bottom:.45rem;}
+  .flag b{color:var(--ink); font-weight:600;}
+  .flag p{margin:0 0 .55rem;}
+  .flag p:last-child{margin-bottom:0;}
+
+  footer{margin-top:2.4rem; padding-top:1.2rem; border-top:1px solid var(--line); font-size:.78rem; color:var(--ink-faint); max-width:74ch; line-height:1.55;}
+  footer a{color:var(--water); text-decoration:underline; text-underline-offset:2px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="eyebrow">Cochrane Handbook v6 · PRISMA 2020</span>
+    <h1>Checklist para revisões sistemáticas e meta-análises</h1>
+    <p>Nove estágios de condução, do protocolo à submissão, ancorados nos capítulos do Cochrane Handbook. Serve para revisões de intervenção com ou sem meta-análise. As marcações ficam salvas no seu navegador; use o botão de limpar ao começar uma revisão nova.</p>
+  </header>
+
+  <div class="progress">
+    <div class="prog-top">
+      <span class="cnt" id="cnt">0<span> / 0 marcados</span></span>
+      <span class="save" id="save"></span>
+    </div>
+    <div class="track"><div class="fill" id="fill"></div></div>
+    <div class="prog-foot">
+      <p>Progresso salvo apenas neste navegador. O selo laranja marca os pontos que revisores mais costumam cobrar.</p>
+      <span class="btns">
+        <button class="act" id="reset" type="button">limpar</button>
+      </span>
+    </div>
+  </div>
+
+  <div id="stages"></div>
+
+  <div class="flag">
+    <span class="lbl">Cinco erros que aparecem com frequência</span>
+    <p><b>Usar desfecho como critério de elegibilidade.</b> Excluir um estudo por não medir o desfecho de interesse introduz viés de relato, porque a decisão de medir e publicar já é influenciada pelo resultado obtido. Defina a elegibilidade por população, intervenção, comparador e desenho.</p>
+    <p><b>Aplicar o RoB 2 uma vez por artigo.</b> A versão 2 avalia por resultado, não por estudo. Um mesmo ensaio pode receber julgamentos diferentes para desfechos diferentes.</p>
+    <p><b>Tratar dados de crossover como grupos independentes.</b> Usar média e desvio por condição sem a correção pareada superestima a variância e desperdiça o ganho de precisão do desenho.</p>
+    <p><b>Contar o braço compartilhado duas vezes.</b> Em ensaios de três braços, incluir A vs B e A vs C na mesma meta-análise duplica os participantes de A. Divida o braço, rode análises separadas ou use meta-análise em rede.</p>
+    <p><b>Concluir ausência de efeito a partir de ausência de significância.</b> Com poucos estudos e amostras pequenas, o intervalo de confiança costuma abarcar tanto benefício quanto dano. Interprete por magnitude e certeza.</p>
+  </div>
+
+  <footer>
+    Organizado a partir da estrutura do <em>Cochrane Handbook for Systematic Reviews of Interventions</em>, versão 6, e da checklist PRISMA 2020. Confira as referências de capítulo contra a versão vigente em <a href="https://training.cochrane.org/handbook">training.cochrane.org/handbook</a> antes de citá-las em um manuscrito. Este é um resumo da estrutura do método, não uma reprodução do texto do Handbook. Para requisitos formais de conduta e relato item a item, consulte os padrões MECIR. Nenhum dado é enviado a servidor: as marcações ficam apenas no armazenamento local do navegador.
+  </footer>
+</div>
+
+<script type="application/json" id="state">
+{"stages":[
+{"n":1,"t":"Preparação e escopo","c":"Cap. 1–2","items":[
+{"id":"a1","b":"Verificar se já existe revisão publicada ou em curso sobre a pergunta.","d":"PROSPERO, Cochrane Library, Epistemonikos. Evita duplicação de esforço e ajuda a posicionar a contribuição."},
+{"id":"a2","b":"Compor a equipe com as competências necessárias.","d":"Mínimo de duas pessoas para triagem e extração, mais um terceiro para desempate. O Handbook recomenda envolver um bibliotecário ou especialista em informação na busca.","x":1},
+{"id":"a3","b":"Declarar conflitos de interesse de todos os autores.","d":"Antes de iniciar a revisão, não na submissão."},
+{"id":"a4","b":"Formular a pergunta em PICO.","d":"O PICO da revisão é mais amplo que o PICO de cada síntese individual. Deixe os dois explícitos."},
+{"id":"a5","b":"Definir a amplitude do escopo.","d":"Escopo amplo responde mais perguntas mas gera heterogeneidade; escopo estreito é mais homogêneo mas pode não achar estudos suficientes."},
+{"id":"a6","b":"Envolver partes interessadas na escolha dos desfechos.","d":"Pacientes, praticantes ou usuários finais. Reduz o risco de sintetizar desfechos que ninguém usa na decisão real."}]},
+{"n":2,"t":"Critérios de elegibilidade e protocolo","c":"Cap. 3","items":[
+{"id":"b1","b":"Definir os desenhos de estudo elegíveis.","d":"Se incluir estudos não randomizados, o plano de risco de viés e de síntese muda (Cap. 24 e 25)."},
+{"id":"b2","b":"Definir população, intervenção e comparador com precisão operacional.","d":"Critérios que dois revisores diferentes apliquem e cheguem ao mesmo resultado."},
+{"id":"b3","b":"Listar os desfechos sem usá-los como critério de elegibilidade.","d":"Excluir estudo por não medir o desfecho desejado introduz viés de relato. A elegibilidade se define por população, intervenção, comparador e desenho.","x":1},
+{"id":"b4","b":"Distinguir desfechos críticos de importantes.","d":"No máximo sete entram na tabela Summary of Findings, e a escolha é feita agora, não depois de ver os resultados."},
+{"id":"b5","b":"Definir como os estudos serão agrupados para a síntese.","d":"Quais intervenções contam como a mesma, quais desfechos são combináveis, quais janelas de tempo. Antes de ver os resultados."},
+{"id":"b6","b":"Declarar e justificar restrições de idioma, data e tipo de publicação.","d":"Restrição de idioma sem justificativa é apontada como limitação em revisão por pares."},
+{"id":"b7","b":"Registrar o protocolo prospectivamente.","d":"PROSPERO ou Open Science Framework, antes de iniciar a triagem. Guarde o número de registro: periódicos pedem na submissão.","x":1}]},
+{"n":3,"t":"Busca","c":"Cap. 4","items":[
+{"id":"c1","b":"Buscar em CENTRAL, MEDLINE e Embase no mínimo.","d":"Padrão Cochrane. Acrescente Scopus e Web of Science conforme o tema."},
+{"id":"c2","b":"Acrescentar bases específicas da área e regionais.","d":"CINAHL, PsycINFO, SPORTDiscus, LILACS, SciELO, conforme o tema e a região de interesse."},
+{"id":"c3","b":"Buscar registros de ensaios clínicos.","d":"ClinicalTrials.gov e WHO ICTRP. Localiza estudos concluídos e não publicados, o que ajuda a avaliar viés de publicação."},
+{"id":"c4","b":"Construir a estratégia com blocos e vocabulário controlado.","d":"Termos MeSH ou Emtree combinados com texto livre, um bloco por componente do PICO, adaptando a sintaxe para cada base."},
+{"id":"c5","b":"Submeter a estratégia a revisão por pares.","d":"Checklist PRESS. Um segundo especialista confere sintaxe, operadores, truncamentos e termos indexados antes da execução.","x":1},
+{"id":"c6","b":"Fazer busca suplementar.","d":"Listas de referências dos incluídos e de revisões prévias, contato com especialistas, literatura cinzenta, anais de congresso."},
+{"id":"c7","b":"Documentar a estratégia completa por base, com data e número de registros.","d":"Vai para o material suplementar. Precisa permitir reprodução exata da busca."},
+{"id":"c8","b":"Reexecutar a busca antes de finalizar.","d":"Se o intervalo entre a busca e a submissão for longo, atualize e incorpore os novos achados.","x":1}]},
+{"n":4,"t":"Seleção dos estudos","c":"Cap. 4","items":[
+{"id":"d1","b":"Remover duplicatas e registrar quantas foram removidas.","d":"O número entra no fluxograma PRISMA."},
+{"id":"d2","b":"Fazer piloto de calibração antes da triagem.","d":"Os revisores triam o mesmo lote pequeno e comparam, para alinhar a interpretação dos critérios antes de dividir o trabalho."},
+{"id":"d3","b":"Triagem de título e resumo por dois revisores independentes.","d":"Ferramentas como Rayyan, Covidence ou EPPI-Reviewer mantêm o cegamento entre revisores."},
+{"id":"d4","b":"Avaliação de texto completo por dois revisores independentes.","d":"Com resolução de discordância por consenso ou terceiro revisor."},
+{"id":"d5","b":"Medir a concordância entre revisores.","d":"Kappa de Cohen ou percentual de concordância. Alguns periódicos pedem."},
+{"id":"d6","b":"Registrar o motivo de exclusão apenas na etapa de texto completo.","d":"Exclusões de título e resumo não precisam de motivo. Cada exclusão de texto completo precisa de motivo nomeado e vira tabela do suplemento.","x":1},
+{"id":"d7","b":"Vincular múltiplos relatos ao mesmo estudo.","d":"A unidade de interesse é o estudo, não a publicação. Um ensaio com três artigos conta uma vez."},
+{"id":"d8","b":"Preencher o fluxograma PRISMA.","d":"Com os números de cada etapa, por base de dados quando viável."}]},
+{"n":5,"t":"Coleta de dados","c":"Cap. 5","items":[
+{"id":"e1","b":"Desenhar e pilotar o formulário de extração.","d":"Testar em dois ou três estudos antes de aplicar ao conjunto. Uma planilha por revisão, com versão única definida como mestra."},
+{"id":"e2","b":"Extrair em duplicata, por dois revisores independentes.","d":"Erros de extração são frequentes e passam despercebidos em extração simples.","x":1},
+{"id":"e3","b":"Extrair características, participantes, intervenções, desfechos e resultados.","d":"Inclusive o que faz o estudo diferir dos demais, que alimenta a análise de heterogeneidade."},
+{"id":"e4","b":"Extrair financiamento e conflitos de interesse dos estudos incluídos.","d":"Capítulo 7. Entra na avaliação de viés e costuma ser exigido no relato."},
+{"id":"e5","b":"Registrar a fonte de cada dado extraído.","d":"Página, tabela ou figura. Obrigatório para valores obtidos por digitalização de gráfico."},
+{"id":"e6","b":"Contatar autores para dados ausentes ou ambíguos.","d":"Registre as tentativas e as respostas. A ausência de resposta também é reportada."},
+{"id":"e7","b":"Declarar o método de qualquer conversão ou imputação.","d":"Mediana e intervalo interquartil para média e desvio, intervalo de confiança para desvio, imputação de correlação. Cada conversão precisa de método citado e análise de sensibilidade."}]},
+{"n":6,"t":"Risco de viés","c":"Cap. 7–8, 25","items":[
+{"id":"f1","b":"Escolher a ferramenta conforme o desenho do estudo.","d":"RoB 2 para ensaios randomizados, ROBINS-I para estudos não randomizados de intervenção. Não misture ferramentas no mesmo gráfico sem explicar."},
+{"id":"f2","b":"Definir o efeito de interesse: atribuição ou adesão.","d":"O RoB 2 exige declarar se a pergunta é o efeito de designar a intervenção ou o de aderir a ela. Muda o julgamento do domínio 2.","x":1},
+{"id":"f3","b":"Avaliar por resultado, não por estudo.","d":"A unidade avaliada é o resultado específico que entra na síntese. Um mesmo ensaio pode receber julgamentos diferentes para desfechos diferentes.","x":1},
+{"id":"f4","b":"Dois avaliadores independentes, respondendo as perguntas sinalizadoras.","d":"Com desempate por terceiro revisor e registro das justificativas."},
+{"id":"f5","b":"Gerar a figura semáforo por domínio.","d":"Pacote robvis em R, ou a ferramenta oficial do RoB 2."}]},
+{"n":7,"t":"Preparação para a síntese","c":"Cap. 6, 9, 23","items":[
+{"id":"g1","b":"Escolher a medida de efeito.","d":"Risco relativo, razão de chances ou diferença de risco para desfechos binários; diferença de médias ou diferença de médias padronizada para contínuos."},
+{"id":"g2","b":"Definir a direção do efeito e manter consistência.","d":"Deixar explícito se valores maiores indicam melhora ou piora, e inverter sinais onde necessário antes de agrupar."},
+{"id":"g3","b":"Evitar erros de unidade de análise.","d":"Ensaios de três braços, ensaios em cluster, medidas repetidas e múltiplos grupos de intervenção contam participantes mais de uma vez se tratados sem correção.","x":1},
+{"id":"g4","b":"Tratar ensaios crossover com análise pareada.","d":"Capítulo 23. Usar média e desvio por condição como se fossem grupos independentes superestima a variância. Se o estudo não reporta a análise pareada, impute a correlação e faça sensibilidade.","x":1},
+{"id":"g5","b":"Tratar ensaios em cluster com correção pelo efeito de desenho.","d":"Capítulo 23. Exige o coeficiente de correlação intracluster, obtido do estudo ou de fonte externa declarada."},
+{"id":"g6","b":"Verificar e padronizar os dados antes de agrupar.","d":"Conferir se a dispersão reportada é erro padrão ou desvio padrão, checar plausibilidade dos valores e conferir denominadores."}]},
+{"n":8,"t":"Síntese","c":"Cap. 10, 12, 13","items":[
+{"id":"h1","b":"Decidir entre meta-análise e síntese alternativa.","d":"Agrupar não é obrigatório. Se os estudos forem clinicamente ou metodologicamente incompatíveis, o capítulo 12 traz as alternativas estruturadas."},
+{"id":"h2","b":"Escolher o modelo e o estimador.","d":"Efeitos aleatórios quando se espera variação real entre estudos. Com poucos estudos, o estimador Hartung-Knapp-Sidik-Jonkman é preferível ao DerSimonian-Laird."},
+{"id":"h3","b":"Avaliar heterogeneidade e reportar intervalo de predição.","d":"I² é instável com poucos estudos. O intervalo de predição comunica melhor a dispersão real dos efeitos do que I² isolado.","x":1},
+{"id":"h4","b":"Pré-especificar subgrupos e meta-regressão.","d":"Definidos no protocolo. Subgrupo escolhido depois de ver os dados é análise exploratória e precisa ser rotulado como tal."},
+{"id":"h5","b":"Rodar as análises de sensibilidade planejadas.","d":"Exclusão de estudos com alto risco de viés, troca de modelo, variação de valores imputados."},
+{"id":"h6","b":"Avaliar viés por resultados ausentes na síntese.","d":"Capítulo 13. Funil e teste de Egger exigem dez estudos ou mais. Com menos, registre como não avaliável, e não como ausente.","x":1},
+{"id":"h7","b":"Comparar os desfechos do protocolo com os publicados em cada estudo incluído.","d":"Detecta relato seletivo dentro dos estudos e alimenta o domínio 5 do RoB 2."},
+{"id":"h8","b":"Se não houver meta-análise, seguir a extensão SWiM no relato.","d":"Synthesis Without Meta-analysis. Define como descrever agrupamento, padronização, direção do efeito e limitações da síntese narrativa."}]},
+{"n":9,"t":"Certeza, interpretação e relato","c":"Cap. 14–15","items":[
+{"id":"i1","b":"Aplicar o GRADE por desfecho, nos cinco domínios.","d":"Risco de viés, inconsistência, indireção, imprecisão e viés de publicação. Registre a justificativa de cada rebaixamento."},
+{"id":"i2","b":"Montar a tabela Summary of Findings.","d":"Máximo de sete desfechos, os escolhidos no protocolo. GRADEpro GDT gera o formato padrão."},
+{"id":"i3","b":"Interpretar por magnitude e certeza, não por significância.","d":"Ausência de significância não é evidência de ausência de efeito, sobretudo com amostras pequenas.","x":1},
+{"id":"i4","b":"Escrever implicações para a prática e para a pesquisa, separadamente.","d":"Cada uma ancorada na certeza do desfecho correspondente. Recomendação forte não se sustenta em certeza baixa."},
+{"id":"i5","b":"Declarar as limitações da própria revisão.","d":"Distintas das limitações dos estudos incluídos. Inclui limitações da busca, da elegibilidade e da síntese."},
+{"id":"i6","b":"Preencher a checklist PRISMA 2020 item a item.","d":"Com o número da página onde cada item é atendido. Vai como suplemento."},
+{"id":"i7","b":"Declarar todos os desvios do protocolo e emendar o registro.","d":"Qualquer mudança de método após o registro precisa ser declarada e justificada no manuscrito.","x":1},
+{"id":"i8","b":"Disponibilizar dados e código de análise.","d":"Planilha de extração, script da meta-análise e valores digitalizados, em repositório com DOI como OSF ou Zenodo."}]}
+]}
+</script>
+
+<script>
+(function(){
+  "use strict";
+  var KEY = "checklist-rs-ma.v1";
+  var state = JSON.parse(document.getElementById("state").textContent);
+  var marks = load();
+
+  function load(){
+    try {
+      var raw = localStorage.getItem(KEY);
+      var parsed = raw ? JSON.parse(raw) : null;
+      return (parsed && typeof parsed === "object") ? parsed : {};
+    } catch (e) { return {}; }
+  }
+
+  function persist(){
+    try {
+      localStorage.setItem(KEY, JSON.stringify(marks));
+      flash("salvo neste navegador", "on");
+    } catch (e) {
+      flash("armazenamento indisponível", "err");
+    }
+  }
+
+  var flashTimer = null;
+  function flash(msg, cls){
+    var el = document.getElementById("save");
+    el.textContent = msg;
+    el.className = "save" + (cls ? " " + cls : "");
+    clearTimeout(flashTimer);
+    flashTimer = setTimeout(function(){
+      el.textContent = "";
+      el.className = "save";
+    }, 2200);
+  }
+
+  function esc(s){
+    return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;")
+      .replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+  }
+
+  function isOn(id){ return marks[id] === 1; }
+
+  function render(){
+    var out = "";
+    state.stages.forEach(function(st){
+      var done = st.items.filter(function(i){ return isOn(i.id); }).length;
+      out += '<div class="stage"><div class="stage-head">'
+        + '<span class="num">' + st.n + '</span>'
+        + '<h2>' + esc(st.t) + '</h2>'
+        + '<span class="ch">' + esc(st.c) + '</span>'
+        + '<span class="frac">' + done + '/' + st.items.length + '</span>'
+        + '</div><ul class="items">';
+      st.items.forEach(function(it){
+        var on = isOn(it.id);
+        out += '<li class="' + (on ? "on" : "") + '"><label>'
+          + '<input type="checkbox" data-id="' + esc(it.id) + '"' + (on ? " checked" : "") + '>'
+          + '<span class="txt"><b>' + esc(it.b) + '</b>'
+          + (it.d ? '<span class="sub">' + esc(it.d) + '</span>' : "")
+          + '</span>'
+          + (it.x ? '<span class="st">ATENÇÃO</span>' : '<span></span>')
+          + '</label></li>';
+      });
+      out += "</ul></div>";
+    });
+    document.getElementById("stages").innerHTML = out;
+    paint();
+  }
+
+  function paint(){
+    var all = 0, done = 0;
+    state.stages.forEach(function(st){
+      st.items.forEach(function(i){ all++; if (isOn(i.id)) done++; });
+    });
+    document.getElementById("cnt").innerHTML =
+      done + '<span> / ' + all + ' marcados</span>';
+    document.getElementById("fill").style.width =
+      (all ? Math.round(done / all * 100) : 0) + "%";
+  }
+
+  document.getElementById("stages").addEventListener("change", function(ev){
+    var box = ev.target;
+    if (!box || box.type !== "checkbox") return;
+    var id = box.getAttribute("data-id");
+    if (box.checked) marks[id] = 1; else delete marks[id];
+
+    var li = box.closest("li");
+    if (li){
+      li.classList.toggle("on", box.checked);
+      var stageEl = li.closest(".stage");
+      var frac = stageEl && stageEl.querySelector(".frac");
+      if (frac){
+        var boxes = stageEl.querySelectorAll('input[type=checkbox]');
+        var n = 0;
+        Array.prototype.forEach.call(boxes, function(b){ if (b.checked) n++; });
+        frac.textContent = n + "/" + boxes.length;
+      }
+    }
+    paint();
+    persist();
+  });
+
+  document.getElementById("reset").addEventListener("click", function(){
+    if (!window.confirm("Limpar todas as marcações? Use ao iniciar uma revisão nova.")) return;
+    marks = {};
+    try { localStorage.removeItem(KEY); } catch (e) {}
+    render();
+    flash("marcações limpas", "on");
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>
